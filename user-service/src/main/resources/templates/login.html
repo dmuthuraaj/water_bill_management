@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .login-form {
+        width: 100%;
+        max-width: 400px;
+        padding: 15px;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-form">
+        <h1 class="text-center">Login</h1>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+        <div id="responseMessage" class="mt-4"></div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#loginForm").on("submit", function (e) {
+          e.preventDefault();
+
+          var credentials = {
+            userName: $("#username").val(),
+            password: $("#password").val(),
+          };
+
+          $.ajax({
+            type: "POST",
+            url: "/api/login",
+            contentType: "application/json",
+            data: JSON.stringify(credentials),
+            success: function (response) {
+              $("#responseMessage").html(
+                '<div class="alert alert-success">' +
+                  response.message +
+                  "</div>"
+              );
+              window.location.href = "/";
+            },
+            error: function () {
+              $("#responseMessage").html(
+                '<div class="alert alert-danger">Login failed. Please try again.</div>'
+              );
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

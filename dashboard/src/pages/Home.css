@@ -1,0 +1,13 @@
+.home-background {
+    background-image: url('./cover.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 95vh;
+    width: 100%;
+    opacity: 0.8; /* Slightly dim the background */
+  }
+  
+  h1+p{
+    color: #e5e906;
+  }

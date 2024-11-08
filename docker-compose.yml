@@ -1,0 +1,86 @@
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  discovery-service:
+    build:
+      context: ./support-services/discovery-service
+      dockerfile: Dockerfile
+    environment:
+      - eureka_url= http://discovery-service:9000/eureka/
+    ports:
+      - 9000:9000
+    depends_on:
+      - builder
+    restart: always
+  gateway-service:
+    build:
+      context: ./support-services/gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - 9001:9001
+    depends_on:
+      - discovery-service
+    restart: always
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+      - 9050:9050
+      - 5010:5010
+    depends_on:
+      - builder
+      - gateway-service
+      - discovery-service
+  device-service:
+    build:
+      context: ./device-service
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+      - 9051:9051
+      - 5011:5011
+    depends_on:
+      - builder
+      - gateway-service
+      - discovery-service
+  bill-service:
+    build:
+      context: ./bill-service
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+      - 9052:9052
+    depends_on:
+      - builder
+      - gateway-service
+      - discovery-service
+  mongodb:
+    image: mongo:latest
+    # image: mongo:4.4
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  discovery-service:
+  gateway-service:
+  user-service:
+  device-service:
+  bill-service:
+  mongodb:

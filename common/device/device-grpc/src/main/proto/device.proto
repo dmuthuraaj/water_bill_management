@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package com.opzero.device.grpc;
+option java_multiple_files = true;
+
+
+service DeviceService {
+  rpc GetDeviceDetail(DeviceByIdRequest) returns (DeviceResponse);
+}
+
+
+message DeviceByIdRequest{
+  string id = 1;
+}
+
+message DeviceResponse {
+  optional DeviceInfo info = 1;
+  CommonResponse common = 2;
+}
+
+message DeviceInfo {
+  string id = 1;
+  string serialNumber=2;
+  string deviceEUI = 3;
+  string clientId = 4;
+  double totalLitresConsumed=5;
+  // optional IdNameContainer user = 6;
+}
+
+
+message IdNameContainer {
+  string name = 1;
+  string id = 2;
+}
+
+
+message CommonRequest{
+  // string requestId = 1;
+}
+
+message CommonResponse{
+  bool isError = 1;
+  optional bool inUse = 2;
+  optional bool isActive = 3;
+  optional bool isDeleted = 4;
+  string message = 5;
+  int64 code = 6;
+  // string requestId = 7;
+}
+

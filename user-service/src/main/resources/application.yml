@@ -1,0 +1,63 @@
+server:
+  port: 9050
+  servlet:
+    context-path: /users
+  error:
+    include-stacktrace: never
+  forward-headers-strategy: native
+
+spring:
+  application:
+    name: user-service
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: server-user
+      auto-index-creation: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  # thymeleaf:
+  #   prefix: classpath:/templates/
+  #   suffix: .html
+  #   cache: false
+grpc:
+  port: 5010
+  enableReflection: true
+  device:
+    host: localhost
+    port: 5011
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  data:
+    mongodb:
+      port: 27017
+      host: mongodb
+      username: admin
+      password: password
+      database: server-user
+      authenticationDatabase: admin
+      auto-index-creation: true
+
+grpc:
+  port: 5010
+  enableReflection: true
+  device:
+    host: device-service
+    port: 5011
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:9000/eureka/

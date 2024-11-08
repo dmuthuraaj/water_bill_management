@@ -1,0 +1,75 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+        - id: device-service
+          uri: lb://device-service
+          predicates:
+            - Path=/devices/**
+        - id: bill-service
+          uri: lb://bill-service
+          predicates:
+            - Path=/bills/**
+        - id: api-doc-service
+          uri: lb://api-doc-service
+          predicates:
+            - Path=/docs/**
+        # - id: admin-service
+        #   uri: lb://admin-service
+        #   predicates:
+        #     - Path=/admin/**
+        # - id: identity-service
+        #   uri: lb://identity-service
+        #   predicates:
+        #     - Path=/auth/**
+
+server:
+  port: 9001
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+logging:
+  level:
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  application:
+    name: gateway-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:9000/eureka/

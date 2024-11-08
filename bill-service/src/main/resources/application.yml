@@ -1,0 +1,66 @@
+server:
+  port: 9052
+  servlet:
+    context-path: /bills
+  error:
+    include-stacktrace: never
+  forward-headers-strategy: native
+
+spring:
+  application:
+    name: bill-service
+  data:
+    mongodb:
+      port: 27017
+      host: localhost
+      database: server-bill
+      auto-index-creation: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+grpc:
+  port: 5012
+  enableReflection: true
+  user:
+    host: localhost
+    port: 5010
+  device:
+    host: localhost
+    port: 5011
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9000/eureka/
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  data:
+    mongodb:
+      port: 27017
+      host: mongodb
+      username: admin
+      password: password
+      database: server-bill
+      authenticationDatabase: admin
+      auto-index-creation: true
+
+grpc:
+  port: 5012
+  enableReflection: true
+  user:
+    host: user-service
+    port: 5010
+  device:
+    host: device-service
+    port: 5011
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-service:9000/eureka/

@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package com.opzero.bill.grpc;
+option java_multiple_files = true;
+
+service BillService {
+
+  rpc GetProfile(ProtoGetProfileRequest) returns (ProtoGetProfileResponse) {}
+}
+
+message GrpcUserCreateRequest{
+  string name = 1;
+  string email = 2;
+  string mobile = 3;
+  string tenant = 4;
+}
+
+message GrpcUserExistRequest{
+  string email = 1;
+  string mobile = 2;
+}
+
+message GrpcUserIdCheckRequest{
+  string userId = 1;
+}
+
+message GrpcUserExistResponse{
+  bool isExist = 1;
+}
+
+message GrpcUserCreateResponse{
+  string userId = 1;
+  bool isError = 2;
+  string error = 3;
+}
+
+message ProtoGetProfileRequest {
+  string userId = 1;
+}
+
+message ProtoGetProfileResponse {
+  string userId = 1;
+  string name = 2;
+  string givenName = 3;
+  string familyName = 4;
+  string preferredUsername = 5;
+  string picture = 6;
+  string email = 7;
+  string phoneNumber = 8;
+  string tenant = 9;
+  string updatedAt = 10;
+  bool isError = 11;
+  string error = 12;
+}
+
+
+message ProtoTenantResource {
+  string name = 1;
+  string tenant = 2;
+  string identifier = 3;
+}
+

@@ -1,0 +1,15 @@
+// syntax = "proto3";
+
+// option java_package = "com.opzero.core.grpc";
+// option java_outer_classname = "CommonProto";
+
+// message CommonRequest {
+//   string requestId = 2;
+// }
+
+// message CommonResponse {
+//   bool isError = 1;
+//   int32 code = 2;
+//   string  message = 3;
+//   string requestId = 4;
+// }

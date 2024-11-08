@@ -1,0 +1,51 @@
+server {
+    listen 80;
+    server_name 13.232.33.97;  # Change this to your domain or IP address
+
+    # Frontend Configuration
+    location / {
+        root /var/www/html/frontend;  # Replace with the actual path to your frontend build files
+        index index.html;
+        try_files $uri /index.html;  # Fallback to index.html for SPA routing
+    }
+
+    location /eureka/ {
+        proxy_pass http://10.0.2.10:9000/eureka;  # Replace with the internal IP and port of your Python service
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Java Microservice
+    location /bills/ {
+        proxy_pass http://10.0.2.11:9001;  # Replace with the internal IP and port of your Java service
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /users/ {
+        proxy_pass http://10.0.2.11:9001;  # Replace with the internal IP and port of your Java service
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /devices/ {
+        proxy_pass http://10.0.2.11:9001;  # Replace with the internal IP and port of your Java service
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # General Nginx settings (optional)
+    client_max_body_size 10M;  # Adjust as needed for file uploads
+    location ~ /\.ht {
+        deny all;  # Deny access to hidden files
+    }
+}
+
