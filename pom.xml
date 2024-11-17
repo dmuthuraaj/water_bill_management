@@ -14,7 +14,6 @@
         <module>user-service</module>
         <module>device-service</module>
         <module>bill-service</module>
-        <!-- <module>common/core/config</module> -->
     </modules>
 
     <parent>

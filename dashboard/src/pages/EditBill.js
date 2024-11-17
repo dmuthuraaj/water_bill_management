@@ -10,14 +10,14 @@ function EditBill() {
 
   useEffect(() => {
     axios
-      .get(`http://13.232.33.97/bills/${id}`)
+      .get(`http://localhost:9001/bills/${id}`)
       .then((response) => setBill(response.data.data))
       .catch((error) => setError("Error fetching bill details"));
   }, [id]);
 
   const handleUpdateBill = () => {
     axios
-      .put(`http://13.232.33.97/bills/${id}`, bill)
+      .put(`http://localhost:9001/bills/${id}`, bill)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/bills");

@@ -6,6 +6,8 @@ option java_multiple_files = true;
 
 service DeviceService {
   rpc GetDeviceDetail(DeviceByIdRequest) returns (DeviceResponse);
+  rpc GetDeviceBySerialNumber(DeviceBySerialNumber) returns (DeviceResponse);
+  rpc GetReport(GetReportRequest) returns (GetReportResponse);
 }
 
 
@@ -13,9 +15,25 @@ message DeviceByIdRequest{
   string id = 1;
 }
 
+message DeviceBySerialNumber{
+  string serialNumber = 1;
+}
+
 message DeviceResponse {
   optional DeviceInfo info = 1;
   CommonResponse common = 2;
+}
+
+message GetReportRequest{
+  string deviceId = 1;
+  string month = 2;
+}
+
+message GetReportResponse{
+  string id = 1;
+  double totalLitresConsumed =2;
+  int64 readingDate = 3;
+  CommonResponse common = 4;
 }
 
 message DeviceInfo {

@@ -18,7 +18,7 @@ function AddUser() {
 
   const handleAddUser = () => {
     axios
-      .post("http://13.232.33.97/users/add", newUser)
+      .post("http://localhost:9001/users/add", newUser)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/users");

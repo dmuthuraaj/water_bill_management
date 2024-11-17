@@ -6,9 +6,10 @@ import lombok.Data;
 
 @Data
 public class DeviceSummaryResponse {
+
     private String id;
     private String serialNumber;
-    private String clientId;
+    private String hhuId;
     private double totalLitresConsumed;
     private boolean isActive;
     private LocalDateTime createdAt;

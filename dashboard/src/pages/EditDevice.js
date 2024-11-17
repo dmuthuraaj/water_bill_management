@@ -10,14 +10,14 @@ function EditDevice() {
 
   useEffect(() => {
     axios
-      .get(`http://13.232.33.97/devices/${id}`)
+      .get(`http://localhost:9001/devices/${id}`)
       .then((response) => setDevice(response.data.data))
       .catch((error) => setError("Error fetching device details"));
   }, [id]);
 
   const handleUpdateDevice = () => {
     axios
-      .put(`http://13.232.33.97/devices/${id}`, device)
+      .put(`http://localhost:9001/devices/${id}`, device)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/devices");

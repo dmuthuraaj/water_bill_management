@@ -46,9 +46,9 @@ public class DeviceService {
             throw new DuplicateResourceException("Device with serial number already exist");
         }
         Device device = new Device();
-        device.setDeviceEUI(request.getDeviceId());
         device.setSerialNumber(request.getSerialNumber());
-        device.setClientId(request.getClientId());
+        // device.setDeviceEUI(request.getDeviceId());
+        // device.setClientId(request.getClientId());
         device.setHhuId(request.getHhuId());
         deviceRepository.save(device);
         return true;
@@ -93,7 +93,6 @@ public class DeviceService {
                 if (clientResponse.getIsError()) {
                     log.info("client not created for device serial {}", meterSerial);
                 }
-                device.setClientId(clientResponse.getClientId());
                 deviceRepository.save(device);
             }
         } catch (IOException e) {

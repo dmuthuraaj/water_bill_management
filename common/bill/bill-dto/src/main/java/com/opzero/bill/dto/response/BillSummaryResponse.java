@@ -13,6 +13,6 @@ public class BillSummaryResponse {
     private String clientId;
     private LocalDate readingDate;
     private LocalDate dueDate;
-    private double totalBill;
+    private double totalAmount;
     private BillStatus status;
 }

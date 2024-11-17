@@ -6,7 +6,6 @@ import lombok.Data;
 public class ReportSummaryResponse {
     private String id;
     private String serialNumber;
-    private String clientId;
+    private String month;
     private double consumed;
-    private double pending;
 }

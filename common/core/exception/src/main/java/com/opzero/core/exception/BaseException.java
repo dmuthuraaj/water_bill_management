@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public class BaseException extends RuntimeException {
 
-    private final int statueCode;
+    public final int statusCode;
 
-    public BaseException(String message, int statueCode) {
+    public BaseException(String message, int statusCode) {
         super(message);
-        this.statueCode = statueCode;
+        this.statusCode = statusCode;
     }
     
 }

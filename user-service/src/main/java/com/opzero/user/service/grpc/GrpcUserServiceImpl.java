@@ -1,7 +1,12 @@
 package com.opzero.user.service.grpc;
 
+import java.util.Optional;
+
 import org.lognet.springboot.grpc.GRpcService;
 
+import com.opzero.user.grpc.GetClientByIdRequest;
+import com.opzero.user.grpc.GetClientBySerialNumberRequest;
+import com.opzero.user.grpc.GetClientResponse;
 import com.opzero.user.grpc.GrpcCreateClientRequest;
 import com.opzero.user.grpc.GrpcCreateClientResponse;
 import com.opzero.user.grpc.ProtoGetProfileRequest;
@@ -44,6 +49,54 @@ public class GrpcUserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
 
         GrpcCreateClientResponse response = GrpcCreateClientResponse.newBuilder().setIsError(false)
                 .setClientId(client.getId()).build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getClientByDeviceSerialNumber(GetClientBySerialNumberRequest request, StreamObserver<GetClientResponse> responseObserver){
+        Optional<Client> optionalClient = clientRepository.findOneByMeterSerialNumber(request.getSerialNumber());
+        if (optionalClient.isEmpty()) {
+            GetClientResponse response = GetClientResponse.newBuilder().setIsError(true)
+                    .setError("client does not exist").build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+
+        Client client = optionalClient.get();
+
+        GetClientResponse response = GetClientResponse.newBuilder()
+                .setId(client.getId())
+                .setName(client.getName())
+                .setMobileNumber(client.getMobileNumber())
+                .setAddress(client.getAddress())
+                .setIsError(false)
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getClientById(GetClientByIdRequest request, StreamObserver<GetClientResponse> responseObserver){
+        Optional<Client> optionalClient = clientRepository.findById(request.getId());
+        if (optionalClient.isEmpty()) {
+            GetClientResponse response = GetClientResponse.newBuilder().setIsError(true)
+                    .setError("client does not exist").build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
+
+        Client client = optionalClient.get();
+
+        GetClientResponse response = GetClientResponse.newBuilder()
+                .setId(client.getId())
+                .setRrNumber(client.getRrNumber())
+                .setDeviceId(client.getDeviceId())
+                .setName(client.getName())
+                .setMobileNumber(client.getMobileNumber())
+                .setAddress(client.getAddress())
+                .setIsError(false)
+                .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

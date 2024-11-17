@@ -14,6 +14,8 @@ public interface MeterReadingRepository extends MongoRepository<MeterReading, St
 
     List<MeterReading> findByDeviceId(String deviceId);
 
+    Optional<MeterReading> findByDeviceIdAndMonth(String deviceId,Month month);
+
     List<MeterReading> findBySerialNumberAndHhuId(String serialNumber,String hhuId);
 
     Optional<MeterReading> findBySerialNumberAndDate(String serialNumber, LocalDate date);

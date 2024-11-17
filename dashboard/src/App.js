@@ -219,7 +219,9 @@ function App() {
           />
           <Route
             path="/device-report/:id"
-            element={isAuthenticated ? <ReportDetails /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <ReportDetails /> : <Navigate to="/login" />
+            }
           />
         </Routes>
       </div>

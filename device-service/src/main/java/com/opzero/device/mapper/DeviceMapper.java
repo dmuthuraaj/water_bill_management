@@ -10,7 +10,7 @@ public class DeviceMapper {
         DeviceSummaryResponse response = new DeviceSummaryResponse();
         response.setId(device.getId());
         response.setSerialNumber(device.getSerialNumber());
-        response.setClientId(device.getClientId());
+        response.setHhuId(device.getHhuId());
         response.setTotalLitresConsumed(device.getTotalLitresConsumed());
         response.setActive(device.isActive());
         response.setCreatedAt(device.getCreatedAt());
@@ -23,7 +23,6 @@ public class DeviceMapper {
         response.setId(device.getId());
         response.setDeviceEUI(device.getDeviceEUI());
         response.setSerialNumber(device.getSerialNumber());
-        response.setClientId(device.getClientId());
         response.setTotalLitresConsumed(device.getTotalLitresConsumed());
         response.setActive(device.isActive());
         response.setCreatedAt(device.getCreatedAt());

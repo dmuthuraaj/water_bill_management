@@ -1,8 +1,6 @@
 package com.opzero.user.mongo.entity;
 
-import com.opzero.core.dto.IdNameContainer;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.opzero.core.mongo.BaseEntity;
 
 import lombok.Data;
@@ -17,11 +15,12 @@ public class Client extends BaseEntity {
 
     private String name;
     private String mobileNumber;
+    private String rrNumber;
     private String address;
     private String meterSerialNumber;
     private String category;
     private double previousReading;
-    private IdNameContainer device;
+    private String deviceId;
     private String zoneNumber;
     private String wardNumber;
     private String existingConsumerNumber;

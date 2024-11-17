@@ -11,7 +11,7 @@ function Users() {
 
   useEffect(() => {
     axios
-      .get("http://13.232.33.97/users/all")
+      .get("http://localhost:9001/users/all")
       .then((response) => {
         if (response.data.code === 200) {
           setUsers(response.data.data);

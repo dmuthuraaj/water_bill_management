@@ -10,14 +10,14 @@ function EditUser() {
 
   useEffect(() => {
     axios
-      .get(`http://13.232.33.97/users/${id}`)
+      .get(`http://localhost:9001/users/${id}`)
       .then((response) => setUser(response.data.data))
       .catch((error) => setError("Error fetching user details"));
   }, [id]);
 
   const handleUpdateUser = () => {
     axios
-      .put(`http://13.232.33.97/users/${id}`, user)
+      .put(`http://localhost:9001/users/${id}`, user)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/users");

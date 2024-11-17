@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.opzero.bill.mongo.BillingDetails;
+import com.opzero.bill.mongo.ConsumerDetails;
+import com.opzero.bill.mongo.ConsumptionDetails;
+import com.opzero.bill.mongo.PreviousMonthPayment;
 import com.opzero.core.dto.BillStatus;
 import com.opzero.core.mongo.BaseEntity;
 
@@ -16,11 +20,12 @@ import lombok.EqualsAndHashCode;
 public class Bill extends BaseEntity{
 
     private String clientId;
+    private BillStatus status;
+    private long billNumber;
     private LocalDate readingDate;
     private LocalDate dueDate;
-    private double rate;
-    private double totalBill;
-    private double previousReading;
-    private double currentReading;
-    private BillStatus status;
+    private ConsumerDetails consumerDetails;
+    private ConsumptionDetails consumptionDetails;
+    private BillingDetails billingDetails;
+    private PreviousMonthPayment previousMonthPayment;
 }

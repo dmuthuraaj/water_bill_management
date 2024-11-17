@@ -25,6 +25,7 @@ public class BaseEntity {
     private boolean isDeleted;
 
     public BaseEntity() {
+        this.inUse = false;
         this.isActive = true;
         this.isDeleted = false;
     }
@@ -33,6 +34,7 @@ public class BaseEntity {
         this.id = entity.getId();
         this.createdAt = entity.getCreatedAt();
         this.modifiedAt = entity.getModifiedAt();
+        this.inUse = entity.isInUse();
         this.isActive = entity.isActive();
         this.isDeleted = entity.isDeleted();
     }

@@ -11,7 +11,7 @@ function Clients() {
 
   useEffect(() => {
     axios
-      .get("http://13.232.33.97/users/client/all")
+      .get("http://localhost:9001/users/client/all")
       .then((response) => {
         if (response.data.code === 200) {
           setClients(response.data.data);
@@ -45,6 +45,7 @@ function Clients() {
           <tr>
             <th>#</th> {/* Serial Number Column */}
             <th>Client ID</th>
+            <th>Name</th>
             <th>Meter Serial</th>
             <th>Category</th>
             <th>Created At</th>
@@ -58,6 +59,7 @@ function Clients() {
               <tr key={client.id}>
                 <td>{index + 1}</td>
                 <td>{client.id}</td>
+                <td>{client.name}</td>
                 <td>{client.meterSerialNumber}</td>
                 <td>{client.category}</td>
                 <td>{client.createdAt}</td>

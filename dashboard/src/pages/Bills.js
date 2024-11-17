@@ -9,7 +9,7 @@ function Bills() {
 
   useEffect(() => {
     axios
-      .get("http://13.232.33.97/bills/all")
+      .get("http://localhost:9001/bills/all")
       .then((response) => {
         if (response.data.code === 200) {
           setBills(response.data.data);
@@ -43,6 +43,7 @@ function Bills() {
             <th>#</th>
             <th>Client Id</th>
             <th>Amount</th>
+            <th>Reading Date</th>
             <th>Due Date</th>
             <th>Status</th>
             <th>Actions</th>
@@ -54,7 +55,8 @@ function Bills() {
               <tr key={bill.id}>
                 <td>{index + 1}</td>
                 <td>{bill.clientId}</td>
-                <td>{bill.totalBill}</td>
+                <td>{bill.totalAmount}</td>
+                <td>{bill.readingDate}</td>
                 <td>{bill.dueDate}</td>
                 <td>{bill.status}</td>
                 <td>

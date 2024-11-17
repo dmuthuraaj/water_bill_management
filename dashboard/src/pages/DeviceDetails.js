@@ -11,7 +11,7 @@ function DeviceDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://13.232.33.97/devices/${id}`)
+      .get(`http://localhost:9001/devices/${id}`)
       .then((response) => {
         if (response.data.code === 200) {
           setDevice(response.data.data);
@@ -47,10 +47,6 @@ function DeviceDetails() {
               <td>{device.serialNumber}</td>
             </tr>
             <tr>
-              <th>Client ID</th>
-              <td>{device.clientId}</td>
-            </tr>
-            <tr>
               <th>Litres Consumed</th>
               <td>{device.totalLitresConsumed}</td>
             </tr>
@@ -68,13 +64,13 @@ function DeviceDetails() {
             <tr>
               <th>Report</th>
               <td>
-                  <button
-                    className="btn btn-info btn-sm"
-                    onClick={() => navigate(`/device-report/${device.id}`)}
-                  >
-                    View Reports
-                  </button>
-                </td>
+                <button
+                  className="btn btn-info btn-sm"
+                  onClick={() => navigate(`/device-report/${device.id}`)}
+                >
+                  View Reports
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>

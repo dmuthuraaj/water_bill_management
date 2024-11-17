@@ -8,7 +8,7 @@ function UserDetails() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://13.232.33.97/users/${id}`)
+    axios.get(`http://localhost:9001/users/${id}`)
       .then(response => {
         if (response.data.code === 200) {
           setUser(response.data.data);

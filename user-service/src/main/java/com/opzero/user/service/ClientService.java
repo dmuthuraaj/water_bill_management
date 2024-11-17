@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.opzero.core.exception.DuplicateResourceException;
 import com.opzero.core.exception.ResourceNotExistException;
+import com.opzero.device.grpc.DeviceBySerialNumber;
+import com.opzero.device.grpc.DeviceResponse;
+import com.opzero.device.grpc.DeviceServiceGrpc;
 import com.opzero.user.dto.request.ClientCreateRequest;
 import com.opzero.user.dto.request.ClientUpdateRequest;
 import com.opzero.user.dto.response.ClientDetailResponse;
@@ -26,6 +29,8 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
+    private final DeviceServiceGrpc.DeviceServiceBlockingStub deviceServiceBlockingStub;
+
     public boolean create(ClientCreateRequest request) {
         Optional<Client> optionalClient = clientRepository.findOneByMobileNumber(request.getMobileNumber());
         if (optionalClient.isPresent()) {
@@ -34,12 +39,24 @@ public class ClientService {
         Client client = new Client();
         client.setCategory(request.getCategory());
         client.setName(request.getName());
-        client.setMeterSerialNumber(request.getMeterSerialNumber());
-        // todo: update the first reading to the device using GRPC
-        client.setPreviousReading(request.getFirstReading());
         client.setAddress(request.getAddress());
         client.setMobileNumber(request.getMobileNumber());
-        client.setActive(true);
+
+        client.setRrNumber(request.getRrNumber());
+        client.setPreviousReading(request.getPreviousReading());
+        client.setZoneNumber(request.getZoneNumber());
+        client.setWardNumber(request.getWardNumber());
+        client.setExistingConsumerNumber(request.getExistingConsumerNumber());
+        client.setWaterBillBalance(request.getWaterBillBalance());
+        client.setNewMeterNumber(request.getNewMeterNumber());
+        client.setDateOfFixing(request.getDateOfFixing());
+        client.setConnectionType(request.getConnectionType());
+        client.setBuildingOwnerName(request.getBuildingOwnerName());
+        client.setAadharNumber(request.getAadharNumber());
+        client.setMunicipalKhataNumber(request.getMunicipalKhataNumber());
+        client.setNumberOfHousesInTheBuilding(request.getNumberOfHousesInTheBuilding());
+        client.setNumberOfPersonsInTheBuilding(request.getNumberOfPersonsInTheBuilding());
+
         clientRepository.save(client);
         return true;
     }
@@ -66,7 +83,15 @@ public class ClientService {
         client.setName(request.getName());
         client.setAddress(request.getAddress());
         client.setMobileNumber(request.getMobileNumber());
-        client.setMeterSerialNumber(request.getMeterSerialNumber());
+        if(request.getMeterSerialNumber() !=null &&!request.getMeterSerialNumber().isEmpty()){
+            DeviceResponse deviceResponse = deviceServiceBlockingStub.getDeviceBySerialNumber(
+                DeviceBySerialNumber.newBuilder().setSerialNumber(request.getMeterSerialNumber()).build());
+            if(deviceResponse.getCommon().getIsError()){
+                throw new ResourceNotExistException(deviceResponse.getCommon().getMessage());
+            }
+            client.setDeviceId(deviceResponse.getInfo().getId());
+            client.setMeterSerialNumber(request.getMeterSerialNumber());
+        }
         client.setCategory(request.getCategory());
         clientRepository.save(client);
         return true;

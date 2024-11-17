@@ -1,4 +1,4 @@
-package com.opzero.device.mongo.entity;
+package com.opzero.device.mongo;
 
 import lombok.Data;
 

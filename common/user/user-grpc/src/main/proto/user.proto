@@ -10,6 +10,8 @@ service UserService {
   rpc UserExist(GrpcUserExistRequest) returns (GrpcUserExistResponse) {}
   rpc UserIdCheck(GrpcUserIdCheckRequest) returns (GrpcUserExistResponse) {}
   rpc CreateClient(GrpcCreateClientRequest) returns (GrpcCreateClientResponse){}
+  rpc GetClientById(GetClientByIdRequest) returns (GetClientResponse) {}
+  rpc GetClientByDeviceSerialNumber(GetClientBySerialNumberRequest) returns (GetClientResponse) {}
 }
 
 message GrpcCreateClientRequest{
@@ -26,6 +28,25 @@ message GrpcCreateClientResponse{
   string name = 2;
   bool isError = 3;
   string error = 4;
+}
+
+message GetClientByIdRequest{
+  string id = 1;
+}
+
+message GetClientBySerialNumberRequest{
+  string serialNumber = 1;
+}
+
+message GetClientResponse{
+  string id =1;
+  string deviceId = 2;
+  string name = 3;
+  string mobileNumber = 4;
+  string address=5;
+  string rrNumber =6;
+  bool isError = 7;
+  string error = 8;
 }
 
 message GrpcUserCreateRequest{

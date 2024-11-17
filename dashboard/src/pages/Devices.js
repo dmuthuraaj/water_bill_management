@@ -12,7 +12,7 @@ function Devices() {
 
   useEffect(() => {
     axios
-      .get("http://13.232.33.97/devices/all")
+      .get("http://localhost:9001/devices/all")
       .then((response) => {
         if (response.data.code === 200) {
           setDevices(response.data.data);
@@ -46,7 +46,7 @@ function Devices() {
           <tr>
             <th>#</th> {/* Serial Number Column */}
             <th>Serial Number</th>
-            <th>Client ID</th>
+            <th>HHU ID</th>
             <th>Created At</th>
             <th>Active</th>
             <th>Actions</th>
@@ -58,7 +58,7 @@ function Devices() {
               <tr key={device.id}>
                 <td>{index + 1}</td> {/* Serial Number */}
                 <td>{device.serialNumber}</td>
-                <td>{device.clientId}</td>
+                <td>{device.hhuId}</td>
                 <td>{device.createdAt}</td>
                 <td>
                   <span
