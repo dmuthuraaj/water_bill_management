@@ -11,7 +11,7 @@ function DeviceDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9001/devices/${id}`)
+      .get(`http://13.232.33.97/devices/${id}`)
       .then((response) => {
         if (response.data.code === 200) {
           setDevice(response.data.data);

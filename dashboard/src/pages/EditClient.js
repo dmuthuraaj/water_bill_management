@@ -10,14 +10,14 @@ function EditClient() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9001/users/client/${id}`)
+      .get(`http://13.232.33.97/users/client/${id}`)
       .then((response) => setClient(response.data.data))
       .catch((error) => setError("Error fetching client details"));
   }, [id]);
 
   const handleUpdateClient = () => {
     axios
-      .put(`http://localhost:9001/users/client/${id}`, client)
+      .put(`http://13.232.33.97/users/client/${id}`, client)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/clients");

@@ -11,7 +11,7 @@ function Clients() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9001/users/client/all")
+      .get("http://13.232.33.97/users/client/all")
       .then((response) => {
         if (response.data.code === 200) {
           setClients(response.data.data);

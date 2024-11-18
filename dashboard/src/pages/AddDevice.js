@@ -13,7 +13,7 @@ function AddDevice() {
   const navigate = useNavigate();
 
   const handleAddDevice = () => {
-    axios.post('http://localhost:9001/devices/add', newDevice)
+    axios.post('http://13.232.33.97/devices/add', newDevice)
       .then(response => {
         if (response.data.code === 200) {
           navigate('/devices');

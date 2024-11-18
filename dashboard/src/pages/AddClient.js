@@ -40,7 +40,7 @@ function AddClient() {
     setError(null);
 
     axios
-      .post("http://localhost:9001/users/client", newClient)
+      .post("http://13.232.33.97/users/client", newClient)
       .then((response) => {
         if (response.data.code === 200) {
           alert(response.data.message);

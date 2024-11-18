@@ -9,7 +9,7 @@ function ReportDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9001/devices/report/${id}`)
+      .get(`http://13.232.33.97/devices/report/${id}`)
       .then((response) => {
         if (response.data.code === 200) {
           setReports(response.data.data);

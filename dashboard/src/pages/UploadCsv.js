@@ -29,7 +29,7 @@ function UploadCsv() {
     formData.append("csvFile", selectedFile);
 
     axios
-      .post("http://localhost:9001/devices/report/upload", formData)
+      .post("http://13.232.33.97/devices/report/upload", formData)
       .then((response) => {
         if (response.data.code === 200) {
           setMessage("File uploaded successfully.");

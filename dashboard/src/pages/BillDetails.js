@@ -9,7 +9,7 @@ function BillDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9001/bills/${id}`)
+      .get(`http://13.232.33.97/bills/${id}`)
       .then((response) => {
         if (response.data.code === 200) {
           setBill(response.data.data);

@@ -14,7 +14,7 @@ function AddBill() {
   useEffect(() => {
     // Fetch clients data from API
     axios
-      .get("http://localhost:9001/users/client/all")
+      .get("http://13.232.33.97/users/client/all")
       .then((response) => {
         if (response.data.code === 200) {
           setClients(response.data.data);
@@ -46,7 +46,7 @@ function AddBill() {
 
   const handleAddBill = () => {
     axios
-      .post("http://localhost:9001/bills/add", newBill)
+      .post("http://13.232.33.97/bills/add", newBill)
       .then((response) => {
         if (response.data.code === 200) {
           navigate("/bills");
